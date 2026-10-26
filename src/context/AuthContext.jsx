@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '../services/supabase.js';
 import { DB_KEY, DB_ROW_ID, emptyDB, repairDB } from '../services/dbStore.js';
 import { todayISO, pad, DEFAULT_BATCHES, CURRENT_BATCH } from '../services/utils.js';
+import initialData from '../services/initialData.json';
 
 const AuthContext = createContext(null);
 
@@ -11,7 +12,19 @@ export const AuthProvider = ({ children }) => {
       const localData = localStorage.getItem(DB_KEY);
       if (localData) {
         const parsed = JSON.parse(localData);
-        if (parsed && Array.isArray(parsed.applications) && parsed.applications.length > 0) {
+        if (parsed && Array.isArray(parsed.applications)) {
+          const seedApps = initialData?.applications || [];
+          if (parsed.applications.length < seedApps.length) {
+            const seedIds = new Set(seedApps.map(a => a.applicationId));
+            const newLocalApps = parsed.applications.filter(a => !seedIds.has(a.applicationId));
+            parsed.applications = [...seedApps, ...newLocalApps];
+            const existingUsernames = new Set((initialData?.users || []).map(u => u.username));
+            parsed.users = [
+              ...(initialData?.users || []),
+              ...(parsed.users || []).filter(u => !existingUsernames.has(u.username))
+            ];
+            return repairDB(parsed);
+          }
           return repairDB(parsed);
         }
       }
