@@ -1,0 +1,14 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  VITE_SUPABASE_URL = "https://atwxokzxgbzluqdwgvml.supabase.co"
+  VITE_SUPABASE_ANON_KEY = "sb_publishable_3shb08pQrYbqQtSJhgfTGQ_QeJ0oKP_"
+  VITE_APP_TITLE = "CED Grant Management — CED, Anna University"
+  VITE_APP_ENV = "production"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

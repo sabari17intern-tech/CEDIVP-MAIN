@@ -47,7 +47,7 @@ async function runTestSuite() {
   } catch (e) {
     console.log(`Starting Vite dev server on port ${PORT}...`);
     serverProcess = spawn('npx.cmd', ['vite', '--port', String(PORT), '--no-open'], {
-      cwd: 'c:\\Users\\sabar\\Downloads\\CEDIVP-main\\CEDIVP-main',
+      cwd: process.cwd(),
       stdio: 'pipe',
       shell: true
     });

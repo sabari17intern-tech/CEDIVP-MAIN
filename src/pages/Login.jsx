@@ -141,9 +141,12 @@ const Login = () => {
           <div>
             <div style={{ marginBottom: '24px' }}>
               <h2 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--navy-900)', margin: 0 }}>Student Sign In</h2>
+              <p style={{ color: 'var(--slate-500)', fontSize: '13.5px', marginTop: '6px' }}>
+                Sign in with your registered 10-digit mobile number
+              </p>
             </div>
 
-            <form onSubmit={handleStudentSubmit}>
+            <form noValidate onSubmit={handleStudentSubmit}>
               <div className="form-field" style={{ marginBottom: '24px' }}>
                 <label style={{ fontWeight: 600, fontSize: '13px', color: 'var(--slate-700)', marginBottom: '8px', display: 'block' }}>
                   Mobile Number / Member ID
@@ -187,7 +190,7 @@ const Login = () => {
               </p>
             </div>
 
-            <form onSubmit={handleAdminSubmit}>
+            <form noValidate onSubmit={handleAdminSubmit}>
               <div className="form-field" style={{ marginBottom: '16px' }}>
                 <label style={{ fontWeight: 600, fontSize: '13px', color: 'var(--slate-700)', marginBottom: '6px', display: 'block' }}>
                   Admin Username

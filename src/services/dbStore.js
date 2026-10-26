@@ -1,5 +1,6 @@
 import { supabase } from './supabase.js';
 import { pad, todayISO, DEFAULT_BATCHES, CURRENT_BATCH, STAGES, STAGE_MAP, STAGE_KEYS, stageIndex } from './utils.js';
+import initialData from './initialData.json';
 
 export const DB_KEY = 'sharan_ivp_db_v6';
 export const DB_ROW_ID = 1;
@@ -66,6 +67,9 @@ export const ROUND2_CRITERIA = [
 ];
 
 export function emptyDB() {
+  if (initialData && Array.isArray(initialData.applications) && initialData.applications.length > 0) {
+    return repairDB(JSON.parse(JSON.stringify(initialData)));
+  }
   return {
     users: [
       { username: 'admin', password: 'admin123', role: 'admin', name: 'CED Administrator', title: 'Programme Office, CED' }
